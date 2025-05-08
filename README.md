@@ -1,3 +1,4 @@
+HEAD
 # Verba
 
 ## The Golden RAGtriever - Community Edition ✨
@@ -478,3 +479,6 @@ You can learn more about Verba's architecture and implementation in its [technic
 
 - **How to upload custom JSON files to Verba?**
   - Right now Verba does not support custom JSON structure. Instead the whole JSON will simply be dumped into the content field of the Verba document. You can read more about the Verba JSON Structure in the Technical Documentation [here](./TECHNICAL.md).
+# firstProject
+my first project with tWAN
+5f6d7fac2615fe0db84e17a9dc5af2a006442af9
