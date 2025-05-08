@@ -6,7 +6,7 @@ services:
       context: ./
       dockerfile: Dockerfile
     ports:
-      - 8000:8000
+      - "8000:8000"
     environment:
       - WEAVIATE_URL_VERBA=http://weaviate:8080
       - OPENAI_API_KEY=$OPENAI_API_KEY
@@ -17,6 +17,10 @@ services:
       - UNSTRUCTURED_API_KEY=$UNSTRUCTURED_API_KEY
       - UNSTRUCTURED_API_URL=$UNSTRUCTURED_API_URL
       - GITHUB_TOKEN=$GITHUB_TOKEN
+    env_file:
+      - .env
+    networks:
+      - ollama-docker
 
     volumes:
       - ./data:/data/
@@ -29,8 +33,6 @@ services:
       timeout: 10s
       retries: 5
       start_period: 10s
-    networks:
-      - ollama-docker
 
   weaviate:
     command:
@@ -42,8 +44,7 @@ services:
       - http
     image: semitechnologies/weaviate:1.25.10
     ports:
-      - 8080:8080
-      - 3000:8080
+      - "8080:8080"
     volumes:
       - weaviate_data:/var/lib/weaviate
     restart: on-failure:0
@@ -66,22 +67,21 @@ services:
 
   # Uncomment to use Ollama within the same docker compose
 
-  # ollama:
-  #     image: ollama/ollama:latest
-  #     ports:
-  #       - 7869:11434
-  #     volumes:
-  #       - .:/code
-  #       - ./ollama/ollama:/root/.ollama
-  #     container_name: ollama
+  ollama:
+       image: ollama/ollama:latest
+       ports:
+         - "11434:11434"
+       volumes:
+        - ~/.ollama:/root/.ollama
+       container_name: ollama
   #     pull_policy: always
   #     tty: true
-  #     restart: always
-  #     environment:
-  #       - OLLAMA_KEEP_ALIVE=24h
-  #       - OLLAMA_HOST=0.0.0.0
-  #     networks:
-  #       - ollama-docker
+       restart: always
+       environment:
+        - OLLAMA_KEEP_ALIVE=24h
+         - OLLAMA_HOST=0.0.0.0
+       networks:
+         - ollama-docker
 
 volumes:
   weaviate_data: {}
