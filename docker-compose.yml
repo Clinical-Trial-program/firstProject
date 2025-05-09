@@ -68,7 +68,7 @@ services:
   # Uncomment to use Ollama within the same docker compose
 
   ollama:
-       image: ollama/ollama:latest
+       image: ollama/ollama:0.6.8
        ports:
          - "11434:11434"
        volumes:
